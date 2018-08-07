@@ -21,14 +21,6 @@ def call(body)
        def html = new htmlReport()
        currentBuild.result = "SUCCESS"
        NEXT_STAGE = "none"
-       branch_name = new ChoiceParameterDefinition('BRANCH', ['master','staging'] as String[],'')
-       value = input(message: 'Please select specified inputs', parameters: [branch_name])
-        if(value == 'master') {
-               BRANCH = 'master'
-        }
-	if(value == 'staging') {
-	       BRANCH = 'staging'
-	}
        stage ('\u2776 Code Checkout') {
           def git = new git()
           git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
