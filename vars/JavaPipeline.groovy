@@ -35,7 +35,6 @@ def call(body)
        NEXT_STAGE="security"
        }
        stage ('\u2777 Pre-Build Tasks') {
-           parallel (
 	   "\u2460 Security Scan" : {
            while (NEXT_STAGE != "security") {
            continue
@@ -43,9 +42,8 @@ def call(body)
            ruby.scanSecurityVulnerabilities("${config.BRAKEMAN_REPORT_FILE}","${config.REPORT_DIRECTORY}")
            html.publishHtmlReport("${config.BRAKEMAN_REPORT_FILE}","${config.REPORT_DIRECTORY}","${config.BRAKEMAN_REPORT_TITLE}")
          }
-       },
+       }
        failFast: true
-      )
     }
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
