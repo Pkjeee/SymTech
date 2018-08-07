@@ -14,16 +14,17 @@ def call(body)
    body()
    timestamps {
      try {
-           def git = new git()
-           git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
+       stage ('\u2776 Code Checkout') {
+       def git = new git()
+       git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
         }
-
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
             print "\u001B[41mERROR => GIT Checkout via pipeline failed, check detailed logs..."
             currentBuild.result = "FAILURE"
             throw caughtError
          }
-      }
+       }
+     }
    }
 }
