@@ -52,6 +52,7 @@ def call(body)
             currentBuild.result = "FAILURE"
             throw caughtError
         }
-     }
-   }
+      }
+    }
+  }
 }
