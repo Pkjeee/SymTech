@@ -5,7 +5,7 @@
 **** version     :: 1.0                                               ****
 **************************************************************************/
 import com.sym.devops.scm.*
-import com.sym.devops.build.*
+import com.sym.devops.build.maven.*
 import com.sym.devops.report.*
 
 def call(body) 
@@ -21,10 +21,10 @@ def call(body)
        def html = new htmlReport()
        currentBuild.result = "SUCCESS"
        NEXT_STAGE = "none"
-       branch_name = new ChoiceParameterDefinition('BRANCH', ['development','staging'] as String[],'')
+       branch_name = new ChoiceParameterDefinition('BRANCH', ['master','staging'] as String[],'')
        value = input(message: 'Please select specified inputs', parameters: [branch_name])
-        if(value == 'development') {
-               BRANCH = 'development'
+        if(value == 'master') {
+               BRANCH = 'master'
         }
 	if(value == 'staging') {
 	       BRANCH = 'staging'
