@@ -44,15 +44,14 @@ def call(body)
            html.publishHtmlReport("${config.BRAKEMAN_REPORT_FILE}","${config.REPORT_DIRECTORY}","${config.BRAKEMAN_REPORT_TITLE}")
          },
        failFast: true
-     )
-    }
-     catch (Exception caughtError) {
+       )
+      }
+     }
+    catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
             print "\u001B[41mERROR => GIT Checkout via pipeline failed, check detailed logs..."
             currentBuild.result = "FAILURE"
             throw caughtError
         }
-      }
     }
-  }
 }
