@@ -54,4 +54,3 @@ def call(body)
             throw caughtError
         }
     }
-}
