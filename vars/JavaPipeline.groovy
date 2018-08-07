@@ -30,20 +30,22 @@ def call(body)
 	       BRANCH = 'staging'
 	}
        stage ('\u2776 Code Checkout') {
-       def git = new git()
-       git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
-       NEXT_STAGE="security"
+          def git = new git()
+          git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
+          NEXT_STAGE="security"
        }
        stage ('\u2777 Pre-Build Tasks') {
+           parallel (
 	   "\u2460 Security Scan" : {
-           while (NEXT_STAGE != "security") {
-           continue
+              while (NEXT_STAGE != "security") {
+           	continue
            }
            ruby.scanSecurityVulnerabilities("${config.BRAKEMAN_REPORT_FILE}","${config.REPORT_DIRECTORY}")
            html.publishHtmlReport("${config.BRAKEMAN_REPORT_FILE}","${config.REPORT_DIRECTORY}","${config.BRAKEMAN_REPORT_TITLE}")
          }
-       }
+       },
        failFast: true
+     )
     }
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
