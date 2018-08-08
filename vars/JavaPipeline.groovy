@@ -17,17 +17,14 @@ def call(body)
    timestamps {
      try {
        def maven = new MavenBuild()
-       def html = new htmlReport()
+       maven.createReportDirectory("${config.REPORT_DIRECTORY}")
        currentBuild.result = "SUCCESS"
-       NEXT_STAGE = "none"
        stage ('\u2776 Code Checkout') {
           def git = new git()
           git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
        },
        failFast: true
-       )
       }
-     }
     catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
             print "\u001B[41mERROR => GIT Checkout via pipeline failed, check detailed logs..."
