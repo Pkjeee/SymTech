@@ -13,11 +13,6 @@ def Checkout(String GIT_URL, String BRANCH, String GIT_CREDENTIALS)
 {
    try {
         wrap([$class: 'AnsiColorBuildWrapper']) {
-          def BRANCH_NAME = "${env.BRANCH_NAME}"
-          if ( BRANCH_NAME != "null" && !BRANCH_NAME.isEmpty() && !BRANCH_NAME.trim().isEmpty())
-	      { 
-     	     BRANCH=BRANCH_NAME
-          }
           println "\u001B[32mINFO => Checking out ${GIT_URL} from branch ${BRANCH}, please wait..."
           checkout([$class: 'GitSCM', branches: [[name: "${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 30]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${GIT_CREDENTIALS}", url: "${GIT_URL}"]]])
           env.GIT_BRANCH = "${BRANCH}"
