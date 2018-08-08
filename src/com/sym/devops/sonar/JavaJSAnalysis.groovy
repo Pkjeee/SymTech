@@ -1,5 +1,5 @@
 
-package com.sym.devops.sonar.npm
+package com.sym.devops.sonar.sonar
 
 def javaJSSonarAnalysis(String SONAR_PROPERTY)
 {
