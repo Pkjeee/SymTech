@@ -23,6 +23,7 @@ def call(body)
           def git = new git()
           git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
        }
+     }
     catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
             print "\u001B[41mERROR => GIT Checkout via pipeline failed, check detailed logs..."
@@ -30,6 +31,5 @@ def call(body)
             throw caughtError
         }
       }
-    }
-  }
+   }
 }
