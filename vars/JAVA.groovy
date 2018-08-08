@@ -6,7 +6,7 @@
 **************************************************************************/
 import com.sym.devops.scm.*
 import com.sym.devops.build.maven.*
-import com.sym.devops.build.sonar.*
+import com.sym.devops.sonar.*
 //import com.sym.devops.sonar.npm.*
 //import com.sym.devops.deploy.*
 //import com.sym.devops.notification.*
